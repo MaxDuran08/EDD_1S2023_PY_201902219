@@ -1,0 +1,24 @@
+digraph L{
+        rankdir=RL
+        subgraph cluster_1{
+            label = "Doble"
+            fontname="Arial"
+            bgcolor = lightseagreen
+    
+            fontsize=15.0
+            
+            node[shape=box fillcolor="" style="filled"]
+            
+            null2[ label="null"];
+            null1[ label="null"];
+            1 [ label="Carnet: 1\nNombre: 1 1\nContraseña: 1",fontsize="14",fontname="Arial"];
+1->null1
+            1->null2
+            edge [style=invis]
+            null2->1
+            edge [style=filled]
+            R10R00001 [ label="Fecha: 2023-02-28 22:35:55\nReporte: Inicio de sesión",fontsize="14",fontname="Arial"];
+R10R00001 [ label="Fecha: 2023-02-28 22:35:55\nReporte: Inicio de sesión",fontsize="14",fontname="Arial"];
+        }
+   
+}

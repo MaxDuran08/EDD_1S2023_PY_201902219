@@ -1,0 +1,26 @@
+digraph L{
+        rankdir=RL
+        subgraph cluster_1{
+            label = "TDA PILA"
+            fontname="Arial"
+            bgcolor = lightseagreen
+            
+            fontsize=15.0
+            
+            node[shape=box fillcolor="" style="filled"]
+1 [ label="Fecha: 2023-02-28 22:40:29\nReporte: Cierre de sesión",fontsize="14",fontname="Arial"];
+2 [ label="Fecha: 2023-02-28 22:39:58\nReporte: Se acepto un estudiante",fontsize="14",fontname="Arial"];
+3 [ label="Fecha: 2023-02-28 22:39:57\nReporte: Se acepto un estudiante",fontsize="14",fontname="Arial"];
+4 [ label="Fecha: 2023-02-28 22:39:57\nReporte: Se acepto un estudiante",fontsize="14",fontname="Arial"];
+5 [ label="Fecha: 2023-02-28 22:39:56\nReporte: Se acepto un estudiante",fontsize="14",fontname="Arial"];
+6 [ label="Fecha: 2023-02-28 22:39:55\nReporte: Se acepto un estudiante",fontsize="14",fontname="Arial"];
+7 [ label="Fecha: 2023-02-28 22:39:55\nReporte: Se acepto un estudiante",fontsize="14",fontname="Arial"];
+8 [ label="Fecha: 2023-02-28 22:39:54\nReporte: Se acepto un estudiante",fontsize="14",fontname="Arial"];
+9 [ label="Fecha: 2023-02-28 22:39:54\nReporte: Se acepto un estudiante",fontsize="14",fontname="Arial"];
+10 [ label="Fecha: 2023-02-28 22:39:53\nReporte: Se acepto un estudiante",fontsize="14",fontname="Arial"];
+11 [ label="Fecha: 2023-02-28 22:39:49\nReporte: Se genero una carga masiva",fontsize="14",fontname="Arial"];
+12 [ label="Fecha: 2023-02-28 22:39:41\nReporte: Inicio de sesión",fontsize="14",fontname="Arial"];
+rank=same{12->11->10->9->8->7->6->5->4->3->2->1}
+        }
+   
+}
