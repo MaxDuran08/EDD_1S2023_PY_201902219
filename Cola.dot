@@ -8,46 +8,9 @@ digraph L{
             fontsize=15.0
             
             node[shape=box fillcolor="" style="filled"]
-202002940 [ label="Carnet: 202002940\nNombre: Sebasti�n Godoy\nContraseña: Sebasti�n129",fontsize="14",fontname="Arial"];
-201801683 [ label="Carnet: 201801683\nNombre: Juan Augusto\nContraseña: Juan130",fontsize="14",fontname="Arial"];
-201700375 [ label="Carnet: 201700375\nNombre: Bryan Montepeque\nContraseña: Bryan131",fontsize="14",fontname="Arial"];
-201900603 [ label="Carnet: 201900603\nNombre: Karen Gatica\nContraseña: Karen132",fontsize="14",fontname="Arial"];
-202113553 [ label="Carnet: 202113553\nNombre: Kevin Garc�a\nContraseña: Kevin133",fontsize="14",fontname="Arial"];
-202003585 [ label="Carnet: 202003585\nNombre: Diego Huite\nContraseña: Diego134",fontsize="14",fontname="Arial"];
-202112026 [ label="Carnet: 202112026\nNombre: Josue Porres\nContraseña: Josue135",fontsize="14",fontname="Arial"];
-202103216 [ label="Carnet: 202103216\nNombre: Sergio Ralda\nContraseña: Sergio136",fontsize="14",fontname="Arial"];
-202101648 [ label="Carnet: 202101648\nNombre: Juan Valle\nContraseña: Juan137",fontsize="14",fontname="Arial"];
-201325511 [ label="Carnet: 201325511\nNombre: Jose Melendez\nContraseña: Jose138",fontsize="14",fontname="Arial"];
-200819325 [ label="Carnet: 200819325\nNombre: Ethel Herrarte\nContraseña: Ethel139",fontsize="14",fontname="Arial"];
-201906468 [ label="Carnet: 201906468\nNombre: Sergio Guix\nContraseña: Sergio140",fontsize="14",fontname="Arial"];
-201801444 [ label="Carnet: 201801444\nNombre: Jos� Donis\nContraseña: Jos�141",fontsize="14",fontname="Arial"];
-201700490 [ label="Carnet: 201700490\nNombre: Marvin Castellanos\nContraseña: Marvin142",fontsize="14",fontname="Arial"];
-201907608 [ label="Carnet: 201907608\nNombre: Ludwing Lopez\nContraseña: Ludwing143",fontsize="14",fontname="Arial"];
-201800673 [ label="Carnet: 201800673\nNombre: Sergio Bucaro\nContraseña: Sergio144",fontsize="14",fontname="Arial"];
-200819074 [ label="Carnet: 200819074\nNombre: Christian Esquite\nContraseña: Christian145",fontsize="14",fontname="Arial"];
-202001471 [ label="Carnet: 202001471\nNombre: Luis Yaquian\nContraseña: Luis146",fontsize="14",fontname="Arial"];
-202010023 [ label="Carnet: 202010023\nNombre: Luis Lizama\nContraseña: Luis147",fontsize="14",fontname="Arial"];
-201503617 [ label="Carnet: 201503617\nNombre: Olivert Vargas\nContraseña: Olivert148",fontsize="14",fontname="Arial"];
-202001800 [ label="Carnet: 202001800\nNombre: Jos� Ibarra\nContraseña: Jos�149",fontsize="14",fontname="Arial"];
-202100299 [ label="Carnet: 202100299\nNombre: Mauricio Castro\nContraseña: Mauricio150",fontsize="14",fontname="Arial"];
-202010810 [ label="Carnet: 202010810\nNombre: Velveth P�rez\nContraseña: Velveth151",fontsize="14",fontname="Arial"];
-201222535 [ label="Carnet: 201222535\nNombre: Miguel Sac\nContraseña: Miguel152",fontsize="14",fontname="Arial"];
-202111478 [ label="Carnet: 202111478\nNombre: Jos� Panaza\nContraseña: Jos�153",fontsize="14",fontname="Arial"];
-201807411 [ label="Carnet: 201807411\nNombre: Pablo Fern�ndez\nContraseña: Pablo154",fontsize="14",fontname="Arial"];
-201019694 [ label="Carnet: 201019694\nNombre: Henderson Hernandez\nContraseña: Henderson155",fontsize="14",fontname="Arial"];
-202100239 [ label="Carnet: 202100239\nNombre: A�da Mansilla\nContraseña: A�da156",fontsize="14",fontname="Arial"];
-202105561 [ label="Carnet: 202105561\nNombre: Jeser Rodas\nContraseña: Jeser157",fontsize="14",fontname="Arial"];
-202104782 [ label="Carnet: 202104782\nNombre: Anthony Zea\nContraseña: Anthony158",fontsize="14",fontname="Arial"];
-201902416 [ label="Carnet: 201902416\nNombre: Julio Fern�ndez\nContraseña: Julio159",fontsize="14",fontname="Arial"];
-202004807 [ label="Carnet: 202004807\nNombre: Hugo Giron\nContraseña: Hugo160",fontsize="14",fontname="Arial"];
-202109554 [ label="Carnet: 202109554\nNombre: Mario Lopez\nContraseña: Mario161",fontsize="14",fontname="Arial"];
-rank=same{202109554->202004807->201902416->202104782->202105561->202100239->201019694->201807411->202111478->201222535->202010810->202100299->202001800->201503617->202010023->202001471->200819074->201800673->201907608->201700490->201801444->201906468->200819325->201325511->202101648->202103216->202112026->202003585->202113553->201900603->201700375->201801683->202002940}
-        }
+NULL [ label="NULL",fontsize="14",fontname="Arial"];         }
    
-}511->202101648->202103216->202112026->202003585->202113553->201900603->201700375->201801683->202002940->202000544}
-        }
-   
-}1648->202103216->202112026->202003585->202113553->201900603->201700375->201801683->202002940->202000544->202004703}
+}ontname="Arial"];
         }
    
 }
