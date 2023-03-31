@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Fase 2</title>
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
     <script src="./index.js"></script>
 </head>
 <body>
@@ -16,11 +17,11 @@
         </div>
         <div class="login-form">
             <h3>Usuario:</h3>
-            <input type="text" placeholder="Usuario"/><br>
+            <input type="text" id="inputUser" placeholder="Usuario"/><br>
             <h3>Contraseña:</h3>
-            <input type="password" placeholder="Contraseña"/>
+            <input type="password" id="inputPassword" placeholder="Contraseña"/>
             <br>
-            <input type="button" value="Login" class="login-button"/>
+            <input type="button" id="btnLogin" value="Iniciar Sesión" onclick="login()" class="login-button"/>
         </div>
     </div>
 
