@@ -1,10 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Administrador</title>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Administrador</title>
+  <link rel="stylesheet" type="text/css" href="./css/Index.css">
+  <script src="./ArbolAVL.js"></script>
+  <script src="./Admin.js"></script>
 </head>
 <body>
+
+  <div class="admin">
+    <div class="admin-header">
+      <h1>Administrador</h1>
+    </div>
+    <div class="admin-form">
+
+      <div class="admin-form-left">
+
+        <input type="button" value="Mostrar Alumnos" onclick="table()"><br>
+        <input type="button" value="Árbol de Estudiantes" onclick="treeAVL()"><br>
+        <input type="button" id="massiveLoad" value="Carga Masiva" onclick="massiveLoad()">
+        <h4 for="massiveLoad" id="labelFile" class="label"></h4>
+        <input type="file" id="inputFile" hidden>
+
+      </div>
+
+      <div class="admin-form-right">
+
+        <div class="admin-form-table" id="admin_form_table">
+            <div class="tbl-header">
+              <table>
+                <thead>
+                <tr>
+                  <th>NOMBRE</th>
+                  <th>CARNET</th>
+                </tr>
+                </thead>
+              </table>
+            </div>
+
+            <div class="tbl-content">
+              <table id="tbl-content">
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <br>
+            <div class="radio-group">
+              <input type="radio" id="In_Orden" name="option" checked onclick="updateTbl()">
+              <label for="In_Orden">In Orden</label>
+              <input type="radio" id="Post_Orden" name="option" onclick="updateTbl()">
+              <label for="Post_Orden">Post Orden</label>
+              <input type="radio" id="Pre_Orden" name="option" onclick="updateTbl()">
+              <label for="Pre_Orden">Pre Orden</label>
+            </div>
+        </div>
+
+        <div class="admin-form-tree" id="admin_form_tree" style="display: none;">
+          <h4>Reporte de Árbol AVL</h4><br>
+          <img id="graph" src="">
+        </div>
+
+      </div>
+
+      <div class="admin-form-bottom">
+
+        <input type="button" value="Cerrar Sesión" onclick="exitAdmin()" class="admin-button"/>
+
+      </div>
+
+    </div>
+  </div>
 
 </body>
 </html>
