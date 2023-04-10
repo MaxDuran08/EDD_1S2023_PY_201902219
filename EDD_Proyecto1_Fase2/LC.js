@@ -40,7 +40,7 @@ class LC {
             this.#clGraphRecursive(this.root);
             try {
                 if(this.last.id!==this.root.id){
-                    connectionsLC += `S_${this.last.id} -> S_${this.root.id} [color="green"];\n`;
+                    connectionsLC += `S_${this.last.id} -> S_${this.root.id} [color="white"];\n`;
                 }
             }catch (e){
 

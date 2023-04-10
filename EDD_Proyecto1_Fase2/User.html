@@ -7,9 +7,12 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Usuario</title>
   <link rel="stylesheet" type="text/css" href="./css/Index.css">
-
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+          crossorigin="anonymous"></script>
   <script src="./ArbolAVL.js"></script>
   <script src="./LC.js"></script>
+  <script src="./NA.js"></script>
   <script src="./User.js"></script>
 </head>
 <body>
@@ -23,10 +26,18 @@
 
 
         <div class="user-form-left-head">
-          <h4>Bienvenido</h4>
+          <h3>Bienvenido</h3>
           <h4 id="id_user"></h4>
+          <h3>Carpetas</h3>
+          <input type="text" id="nameFolder" value="" onclick="" placeholder="Nombre de Carpeta">
           <input type="button" value="Crear Carpeta" onclick="createFile()">
           <input type="button" value="Eliminar Carpeta" onclick="deleteFile()">
+          <h3>Archivos</h3>
+          <input type="text" id="nameFile" value="" onclick="" placeholder="Nombre de Archivo">
+          <input type="button" value="Crear Archivo" onclick="">
+          <input type="button" id="loadFile" value="Subir Archivo" onclick="">
+          <h4 for="loadFile" id="labelFile" class="label"></h4>
+          <input type="file" id="inputFile" hidden>
         </div>
         <div class="user-form-left-body">
 
@@ -37,20 +48,28 @@
 
         <div class="user-form-right-head">
           <input type="button" value="Escritorio" onclick="showDesk()">
-          <input type="text">
+          <input type="text" disabled value="/" id="path">
         </div>
         <div class="user-form-right-body">
-          <input type="button" value="Reporte Carpetas">
+          <input type="button" value="Reporte Carpetas" onclick="reportFolders()">
           <input type="button" value="Reporte Archivos">
-          <input type="button" value="Reporte Bitacora" onclick="showCLGraph()">
+          <input type="button" value="Reporte Bitacora" onclick="reportBinnacle()">
           <input type="button" value="Cerrar Sesión" onclick="exitUser()">
         </div>
         <div class="user-form-right-bottom">
-          <div class="report" id="report" style="display: none;">
-            <h4 id="graph_text"></h4><br>
-            <img id="graph" src="">
+          <div class="report" id="report_files" style="display: none;">
+            <h4>Reporte de Archivos</h4><br>
+            <img id="graph_files" src="">
           </div>
-          <div class="file" id="file">
+          <div class="report" id="report_folders" style="display: none;">
+            <h4>Reporte de Carpetas</h4><br>
+            <img id="graph_folders" src="">
+          </div>
+          <div class="report" id="report_binnacle" style="display: none;">
+            <h4>Reporte de Bitacora</h4><br>
+            <img id="graph_binnacle" src="">
+          </div>
+          <div class="desk" id="desk">
 
           </div>
 

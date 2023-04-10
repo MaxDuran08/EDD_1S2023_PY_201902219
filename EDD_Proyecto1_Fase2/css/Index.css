@@ -225,7 +225,6 @@ input[type=radio]:checked + label{
     background-color:slategrey ;
     border-radius: 20px;
     margin: 10px;
-    height: 150px;
     display: flex;
     justify-items: center;
     align-items: center;
@@ -271,19 +270,25 @@ input[type=radio]:checked + label{
 .user-form input[type="text"]{
     max-width:400px;
     width: 80%;
+    height:20px;
     line-height:5px;
     font-family: 'Ubuntu', sans-serif;
-    margin:1em 2em;
+    margin-block: 5px;
     border-radius:20px;
-    border:2px solid #f2f2f2;
+    border:1px solid #f2f2f2;
     outline:none;
     padding-left:10px;
 }
-.user-form h4{
+.user-form h4,h3{
     color: white;
 }
+
 
 .report img:hover{
     transform: scale(1.25);
     transition: 1s;
+}
+/*Desk*/
+.desk forlder{
+    height: 10px;
 }

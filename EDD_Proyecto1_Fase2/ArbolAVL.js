@@ -5,6 +5,7 @@ class NodoAVL {
         this.right = null;
         this.height = 0;
         this.LC=new LC()
+        this.NA=new NA()
     }
 }
 
@@ -143,20 +144,21 @@ class ArbolAVL {
         return false
     }
 
-    save(id,password,Binnacle){
+    save(id,password,Binnacle,Nario){
         this.current = this.root
-        return this.save_find(id,password,Binnacle)
+        return this.save_find(id,password,Binnacle,Nario)
     }
-    save_find(id,password,Binnacle){
+    save_find(id,password,Binnacle,Nario){
         if(this.current && this.current.item.id.toString()===id && this.current.item.password===password){
             this.current.LC=Binnacle
+            this.current.NA=Nario
             return this.current
         }else if( this.current && this.current.item.id<id){
             this.current = this.current.right
-            return this.save_find(id,password,Binnacle)
+            return this.save_find(id,password,Binnacle,Nario)
         }else if(this.current && this.current.item.id>id){
             this.current = this.current.left
-            return this.save_find(id,password,Binnacle)
+            return this.save_find(id,password,Binnacle,Nario)
         }
         return false
     }
