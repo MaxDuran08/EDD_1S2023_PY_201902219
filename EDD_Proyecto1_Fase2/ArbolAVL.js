@@ -4,6 +4,7 @@ class NodoAVL {
         this.left = null;
         this.right = null;
         this.height = 0;
+        this.LC=new LC()
     }
 }
 
@@ -124,6 +125,43 @@ class ArbolAVL {
         return parent
     }
 
+    search(id,password){
+        this.current = this.root
+        return this.find(id,password)
+    }
+
+    find(id,password){
+        if(this.current && this.current.item.id.toString()===id && this.current.item.password===password){
+            return this.current
+        }else if( this.current && this.current.item.id<id){
+            this.current = this.current.right
+            return this.find(id,password)
+        }else if(this.current && this.current.item.id>id){
+            this.current = this.current.left
+            return this.find(id,password)
+        }
+        return false
+    }
+
+    save(id,password,Binnacle){
+        this.current = this.root
+        return this.save_find(id,password,Binnacle)
+    }
+    save_find(id,password,Binnacle){
+        if(this.current && this.current.item.id.toString()===id && this.current.item.password===password){
+            this.current.LC=Binnacle
+            return this.current
+        }else if( this.current && this.current.item.id<id){
+            this.current = this.current.right
+            return this.save_find(id,password,Binnacle)
+        }else if(this.current && this.current.item.id>id){
+            this.current = this.current.left
+            return this.save_find(id,password,Binnacle)
+        }
+        return false
+    }
+
+
     treeGraph(){
         nodes = "";
         connections = "";
@@ -136,12 +174,16 @@ class ArbolAVL {
     #treeGraphRecursive(current){
         if(current.left != null){
             this.#treeGraphRecursive(current.left);
-            connections += `S_${current.item.id} -> S_${current.left.item.id} [color="red"];\n`;
+            connections += `S_${current.item.id} -> S_${current.left.item.id} [color="white"];\n`;
         }
-        nodes += `S_${current.item.id}[label="${current.item.name}\\nAltura:${current.height}" fillcolor="yellow:green" style=filled];`
+        if(current.height===-1){
+            nodes += `S_${current.item.id}[label="${current.item.name}\\nAltura:${1}" fillcolor="yellow:green" style=filled];`
+        }else {
+            nodes += `S_${current.item.id}[label="${current.item.name}\\nAltura:${current.height}" fillcolor="yellow:green" style=filled];`
+        }
         if(current.right != null){
-            this.#treeGraphRecursive(current.right);
-            connections += `S_${current.item.id} -> S_${current.right.item.id} [color="blue"];\n`;
+        this.#treeGraphRecursive(current.right);
+        connections += `S_${current.item.id} -> S_${current.right.item.id} [color="yellow"];\n`;
         }
     }
 
@@ -155,26 +197,27 @@ class ArbolAVL {
         let row=tbl.insertRow()
         let cell1=row.insertCell(0)
         let cell2=row.insertCell(1)
+        let cell3=row.insertCell(2)
         cell1.innerHTML=current.item.name
         cell2.innerHTML=current.item.id
+        cell3.innerHTML=current.item.password
         if(current.right != null){
             this.#inOrderRecursive(current.right,tbl);
         }
         return row;
     }
-    //--------------------------------------------------------------------------
-    //                  RECORRIDO PRE ORDER
-    //--------------------------------------------------------------------------
+
     preOrder(tbl){
-        let html = this.#preOrderRecursive(this.root,tbl);
-        return html;
+        return this.#preOrderRecursive(this.root, tbl);
     }
     #preOrderRecursive(current,tbl){
         let row=tbl.insertRow()
         let cell1=row.insertCell(0)
         let cell2=row.insertCell(1)
+        let cell3=row.insertCell(2)
         cell1.innerHTML=current.item.name
         cell2.innerHTML=current.item.id
+        cell3.innerHTML=current.item.password
         if(current.left != null){
             this.#inOrderRecursive(current.left,tbl);
         }
@@ -184,12 +227,8 @@ class ArbolAVL {
         return row;
     }
 
-    //--------------------------------------------------------------------------
-    //                  RECORRIDO POST ORDER
-    //--------------------------------------------------------------------------
     postOrder(tbl){
-        let html = this.#postOrderRecursive(this.root,tbl);
-        return html;
+        return this.#postOrderRecursive(this.root, tbl);
     }
     #postOrderRecursive(current,tbl){
         if(current.left != null){
@@ -201,8 +240,10 @@ class ArbolAVL {
         let row=tbl.insertRow()
         let cell1=row.insertCell(0)
         let cell2=row.insertCell(1)
+        let cell3=row.insertCell(2)
         cell1.innerHTML=current.item.name
         cell2.innerHTML=current.item.id
+        cell3.innerHTML=current.item.password
         return row;
     }
 

@@ -78,31 +78,36 @@ function massiveLoad() {
     let file =document.getElementById("inputFile")
     file.click()
     file.addEventListener("change",function (){
-        let lbl=document.getElementById("labelFile")
-        if(file.files.length>0){
-            lbl.innerHTML=file.value.split("\\").pop();
-        }else{
-            lbl.innerHTML=""
-        }
-        const fl=file.files[0]
-        const reader=new FileReader()
-        reader.addEventListener("load",function () {
-            const content=reader.result
-            const objectJSON=JSON.parse(content).alumnos
-            objectJSON.forEach(alumno=>{
-                let item={
-                    id:alumno.carnet,
-                    name:alumno.nombre,
-                    password:alumno.pasword,
-                    root:alumno.carpeta_raiz
-                }
-                Tree.insert(item)
-                localStorage.setItem("TokenTree", JSON.stringify(Tree))
-                updateTbl()
-                showAvlGraph()
+        try{
+            let lbl=document.getElementById("labelFile")
+            if(file.files.length>0){
+                lbl.innerHTML=file.value.split("\\").pop();
+            }else{
+                lbl.innerHTML=""
+            }
+            const fl=file.files[0]
+            const reader=new FileReader()
+            reader.addEventListener("load",function () {
+                const content=reader.result
+                const objectJSON=JSON.parse(content).alumnos
+                objectJSON.forEach(alumno=>{
+                    let item={
+                        id:alumno.carnet,
+                        name:alumno.nombre,
+                        password:alumno.password,
+                        root:alumno.carpeta_raiz,
+                    }
+                    Tree.insert(item)
+                    localStorage.setItem("TokenTree", JSON.stringify(Tree))
+                    updateTbl()
+                    showAvlGraph()
+                })
             })
-        })
-        reader.readAsText(fl)
+            reader.readAsText(fl)
+        }catch (e) {
+
+        }
+
     })
     console.log("Carga masiva")
 }

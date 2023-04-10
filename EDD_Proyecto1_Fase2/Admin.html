@@ -7,7 +7,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Administrador</title>
   <link rel="stylesheet" type="text/css" href="./css/Index.css">
+
   <script src="./ArbolAVL.js"></script>
+  <script src="./LC.js"></script>
   <script src="./Admin.js"></script>
 </head>
 <body>
@@ -18,25 +20,31 @@
     </div>
     <div class="admin-form">
 
-      <div class="admin-form-left">
+      <div class="admin-form-top">
 
-        <input type="button" value="Mostrar Alumnos" onclick="table()"><br>
-        <input type="button" value="Árbol de Estudiantes" onclick="treeAVL()"><br>
+        <input type="button" value="Mostrar Alumnos" onclick="table()">
+        <input type="button" value="Árbol de Estudiantes" onclick="treeAVL()">
         <input type="button" id="massiveLoad" value="Carga Masiva" onclick="massiveLoad()">
+        <div class="massive">
+
         <h4 for="massiveLoad" id="labelFile" class="label"></h4>
+        </div>
+        <input type="button" value="Cerrar Sesión" onclick="exitAdmin()" class="admin-button"/>
         <input type="file" id="inputFile" hidden>
+
 
       </div>
 
-      <div class="admin-form-right">
-
+      <div class="admin-form-bottom">
         <div class="admin-form-table" id="admin_form_table">
+          <h3>Reporte de Alumnos</h3>
             <div class="tbl-header">
               <table>
                 <thead>
                 <tr>
                   <th>NOMBRE</th>
                   <th>CARNET</th>
+                  <th>CONTRASEÑA</th>
                 </tr>
                 </thead>
               </table>
@@ -60,15 +68,9 @@
         </div>
 
         <div class="admin-form-tree" id="admin_form_tree" style="display: none;">
-          <h4>Reporte de Árbol AVL</h4><br>
+          <h3>Reporte de Árbol AVL</h3><br>
           <img id="graph" src="">
         </div>
-
-      </div>
-
-      <div class="admin-form-bottom">
-
-        <input type="button" value="Cerrar Sesión" onclick="exitAdmin()" class="admin-button"/>
 
       </div>
 
