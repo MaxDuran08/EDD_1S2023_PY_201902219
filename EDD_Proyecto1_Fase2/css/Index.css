@@ -155,7 +155,8 @@ td{
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }
 /*RadioButton*/
-input[type=radio] {
+input[type=radio],
+input[type=checkbox] {
     position: absolute;
     visibility: hidden;
     display: none;
@@ -169,7 +170,7 @@ label {
     font-family: 'Ubuntu', sans-serif;
     background-color: white;
 }
-input[type=radio]:checked + label{
+input[type=radio],input[type=checkbox]:checked + label{
     color: white;
     background: slategrey;
 }

@@ -3,6 +3,7 @@ let Tree=new ArbolAVL()
 let User;
 let Binnacle=new LC()
 let Nario=new NA()
+let Matrix=new SM()
 
 if(localStorage.getItem("TokenTree")&&localStorage.getItem("TokenLogin")){
     Tree.root=JSON.parse(localStorage.getItem("TokenTree")).root
@@ -15,6 +16,10 @@ if(localStorage.getItem("TokenTree")&&localStorage.getItem("TokenLogin")){
     Nario.root.id=User.NA.root.id
     Nario.size=User.NA.size
     Nario.repeat=User.NA.repeat
+    Matrix.head=User.SM.head
+    Matrix.xSize=User.SM.xSize
+    Matrix.ySize=User.SM.ySize
+
     console.log(User)
     document.addEventListener('DOMContentLoaded', function() {
         let id_user=document.getElementById("id_user")
@@ -64,13 +69,20 @@ function reportBinnacle() {
     showForm("report_binnacle")
 }
 function reportFiles() {
-
+    showSMGraph()
+    showForm("report_files")
 }
 function reportFolders() {
     showNAGraph()
     showForm("report_folders")
 }
 
+function showSMGraph(){
+    let url = 'https://quickchart.io/graphviz?graph=';
+    let body = `digraph G { ${Matrix.graph()} }`
+    const graph = document.getElementById("graph_files")
+    graph.src=url+body
+}
 function showCLGraph(){
     let url = 'https://quickchart.io/graphviz?graph=';
     let body = `digraph G { rankdir = TB bgcolor=transparent ${Binnacle.clGraph()} }`
@@ -121,7 +133,7 @@ function createFile(){
     if(nameFile.value!==""){
         console.log(nameFile.value)
         Nario.getFolder(path).files.push({
-            name:nameFile.value,
+            name:Nario.repeatFile(nameFile.value,Nario.getFolder(path).files),
             content:"",
             type:"text/plain"
         })
@@ -186,6 +198,27 @@ function loadFile(){
     return true
 }
 
+
+
+function setAcces() {
+    let id = document.getElementById("idStudent")
+    let file = document.getElementById("idFile")
+    let read = document.getElementById("read")
+    let write = document.getElementById("write")
+    let value=""
+    if((read.checked||write.checked)&&Tree.searchId(id.value)&&Nario.searchFile(file.value)){
+        if(read.checked){
+            value+="-r"
+        }
+        if(write.checked){
+            value+="-w"
+        }
+        Matrix.insert(Matrix.xSize,Matrix.ySize,value,id.value,file.value)
+        Matrix.xSize+=1
+        Matrix.ySize+=1
+    }
+
+}
 
 function save() {
     let TokenLogin=JSON.parse(localStorage.getItem("TokenLogin"))

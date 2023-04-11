@@ -13,6 +13,7 @@
   <script src="./ArbolAVL.js"></script>
   <script src="./LC.js"></script>
   <script src="./NA.js"></script>
+  <script src="./SM.js"></script>
   <script src="./User.js"></script>
 </head>
 <body>
@@ -39,8 +40,15 @@
           <h4 for="loadFile" id="labelFile" class="label"></h4>
           <input type="file" id="inputFile" hidden accept="application/pdf, .txt, image/*">
           <h3>Permisos</h3>
-          <input type="text" id="idStudent" value="" placeholder="Carnet del Archivo">
-
+          <input type="text" id="idStudent" value="" placeholder="Carnet del estudiante">
+          <input type="text" id="idFile" value="" placeholder="Nombre de Archivo">
+          <div class="radio-group">
+            <input type="checkbox" id="read" name="option"  checked>
+            <label for="read">r</label>
+            <input type="checkbox" id="write" name="option" >
+            <label for="write">w</label>
+          </div>
+          <input type="button" value="Dar Acceso" onclick="setAcces()">
         </div>
         <div class="user-form-left-body">
 
@@ -55,7 +63,7 @@
         </div>
         <div class="user-form-right-body">
           <input type="button" value="Reporte Carpetas" onclick="reportFolders()">
-          <input type="button" value="Reporte Archivos">
+          <input type="button" value="Reporte Archivos" onclick="reportFiles()">
           <input type="button" value="Reporte Bitacora" onclick="reportBinnacle()">
           <input type="button" value="Cerrar Sesión" onclick="exitUser()">
         </div>
@@ -74,7 +82,6 @@
           </div>
           <div class="desk-container" id="desk-container">
             <div class="desk" id="desk">
-
             </div>
           </div>
 

@@ -1,7 +1,9 @@
 class Mnode{
-    constructor(x, y, value){
+    constructor(x, y, value,xValue,yValue){
         this.x = x;
         this.y = y;
+        this.xValue = xValue;
+        this.yValue = yValue;
         this.value = value;
 
         // APUNTADORES
@@ -13,19 +15,21 @@ class Mnode{
 }
 
 // CLASE  MATRIZ DISPERSA
-class SparseMatrix{
+class SM{
 
     constructor(){
         this.head =  new Mnode(-1, -1, "Inicio");
+        this.xSize=0
+        this.ySize=0
     }
 
-    insert(x, y, value){
+    insert(x, y, value,xValue,yValue){
         // CREAR CABECERAS DE LAS FILAS O EJE X
-        this.#xHeaders(x);
+        this.#xHeaders(x,xValue,yValue);
         // CREAR CABECERAS DE LAS COLUMNAS O EJE Y
-        this.#yHeaders(y);
+        this.#yHeaders(y,xValue,yValue);
         // CREAR EL NUEVO NODO
-        const node = new Mnode(x,y,value);
+        const node = new Mnode(x,y,value,xValue,yValue);
         // AGREGAR AL EJE X
         this.#addX(node, x);
         // AGREGAR AL EJE Y
@@ -33,8 +37,8 @@ class SparseMatrix{
     }
 
     // REALIZAR LAS CABECERAS EN LAS FILAS O EJE X
-    #xHeaders(x){
-        const curr = new Mnode(-1,-1, x);
+    #xHeaders(x,xValue,yValue){
+        const curr = new Mnode(-1,-1, x,xValue,yValue);
         if(this.head.down == null){
             this.head.down = curr;
             curr.up = this.head;
@@ -60,8 +64,8 @@ class SparseMatrix{
         }
     }
 
-    #yHeaders(y){
-        const curr = new Mnode(-1,-1, y);
+    #yHeaders(y,xValue,yValue){
+        const curr = new Mnode(-1,-1, y,xValue,yValue);
         if(this.head.right == null){
             this.head.right = curr;
             curr.left = this.head;
@@ -197,7 +201,7 @@ class SparseMatrix{
 
     graph(){
         let code = "graph [nodesep=\"0.8\", ranksep=\"0.6\"]; \n";
-        code +="M0[ label = \"Inicio\" width = 1.5 shape = \"square\" style = \"filled\" fillcolor =\"slateblue\" group=\"0\"]; \n";
+        code +="M0[ label = \"DOCUMENTOS\" width = 1.5 shape = \"square\" style = \"filled\" fillcolor =\"slateblue\" group=\"0\"]; \n";
         code += this.#headersGraph()
         code += this.#nodesGraph()
         return(code)
@@ -209,7 +213,7 @@ class SparseMatrix{
         let temp = null;
         try { temp = this.head.right } catch (error) { temp = null; console.log("GRAPH"); }
         while(temp != null){
-            nodes += "Y" + temp.value + `[label="Y(${temp.value})" width = 1.5 shape ="square" style="filled" fillcolor="skyblue3" group = ${temp.value} ];\n`
+            nodes += "Y" + temp.value + `[label="${temp.yValue}" width = 1.5 shape ="square" style="filled" fillcolor="skyblue3" group = ${temp.value} ];\n`
             rank += "Y" + temp.value + ";";
             if(temp.right != null){
                 conn += "Y" + temp.value + "->";
@@ -222,7 +226,8 @@ class SparseMatrix{
         conn += 'M0 ->';
         try { temp = this.head.down } catch (error) { temp = null; console.log("GRAPH"); }
         while(temp != null){
-            nodes += "X" + temp.value + `[label="X(${temp.value})" width = 1.5 shape ="square" style="filled" fillcolor="skyblue3" group="0"];\n`
+            console.log(temp)
+            nodes += "X" + temp.value + `[label="${temp.xValue}" width = 1.5 shape ="square" style="filled" fillcolor="skyblue3" group="0"];\n`
             if(temp.down != null){
                 conn += "X" + temp.value + "->";
             }else{

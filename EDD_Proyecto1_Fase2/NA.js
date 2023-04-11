@@ -137,6 +137,30 @@ class NA{
         return 'node[shape="record"];\n' + nodes +'\n'+ connections;
     }
 
+    searchFile(name){
+        let node=this.root
+        return this.searchFileRecursive(name,node)
+    }
+    searchFileRecursive(name,node){
+        let key=false
+        if(node.files.map(file=>{
+            if(file.name===name){
+                key =true
+            }
+        })
+        ){
+            if(key){
+                return true
+            }
+        }else{
+            node.children.map(child=>{
+                this.searchFileRecursive(name,child)
+            })
+        }
+
+        return false
+    }
+
     getHTML(path){
         let node = this.getFolder(path);
         let code = "";

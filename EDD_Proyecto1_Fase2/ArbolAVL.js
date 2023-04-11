@@ -6,6 +6,7 @@ class NodoAVL {
         this.height = 0;
         this.LC=new LC()
         this.NA=new NA()
+        this.SM=new SM()
     }
 }
 
@@ -140,6 +141,24 @@ class ArbolAVL {
         }else if(this.current && this.current.item.id>id){
             this.current = this.current.left
             return this.find(id,password)
+        }
+        return false
+    }
+
+    searchId(id){
+        this.current = this.root
+        return this.findId(id)
+    }
+
+    findId(id){
+        if(this.current && this.current.item.id.toString()===id){
+            return this.current
+        }else if( this.current && this.current.item.id<id){
+            this.current = this.current.right
+            return this.findId(id)
+        }else if(this.current && this.current.item.id>id){
+            this.current = this.current.left
+            return this.findId(id)
         }
         return false
     }
