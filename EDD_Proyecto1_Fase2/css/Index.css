@@ -197,7 +197,7 @@ input[type=radio]:checked + label{
 /*User*/
 .user{
     margin: 0 auto;
-    max-width: 1000px;
+
 }
 .user-header{
     color:#fff;
@@ -212,9 +212,9 @@ input[type=radio]:checked + label{
     grid-template-rows: repeat(2, auto);
     align-items: center;
     justify-items: center;
+    justify-content: center;
 }
 .user-form-left{
-    background-color: blue;
     width: 230px;
     height: 500px;
     grid-column: 1 / 2;
@@ -222,7 +222,6 @@ input[type=radio]:checked + label{
 }
 .user-form-left-head{
     border: 3px solid white;
-    background-color:slategrey ;
     border-radius: 20px;
     margin: 10px;
     display: flex;
@@ -289,6 +288,21 @@ input[type=radio]:checked + label{
     transition: 1s;
 }
 /*Desk*/
-.desk forlder{
-    height: 10px;
+.desk{
+    width: 900px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+.folder{
+    width: 50px;
+    margin: 10px;
+    flex: 1 1 80px;
+}
+.folder img{
+    height: 50px;
+    width: 50px;
+}
+.folder p{
+    color: white;
 }

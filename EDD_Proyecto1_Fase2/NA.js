@@ -91,6 +91,30 @@ class NA{
         }
         return folderName
     }
+    repeatFile(fileName,List){
+        this.repeat=0;
+        if(List.length>0){
+            return this.repeatFileRecursive(fileName,List)
+        }
+        return fileName
+    }
+    repeatFileRecursive(folderName,List){
+        if(List.length>0) {
+            List.forEach(child => {
+                if(folderName.toString()===child.name){
+                    const regex = /\(\d+\).*/;
+                    const indice = folderName.search(regex);
+                    if (indice >= 0) {
+                        folderName = folderName.replace(regex, "")
+                    }
+                    this.repeat+=1
+                    folderName=folderName+"("+this.repeat+")"
+                    folderName= this.repeatFileRecursive(folderName,List)
+                }
+            })
+        }
+        return folderName
+    }
 
     graph(){
         let nodes = "";
@@ -119,18 +143,20 @@ class NA{
         node.children.map(child => {
             code += ` <div class="folder" onclick="entrarCarpeta('${child.folderName}')">
                         <img src="./imgs/folder.png" width="100%"/>
-                        <p class="h6 text-center">${child.folderName}</p>
+                        <p>${child.folderName}</p>
                     </div>`
         })
         // console.log(node.files)
         node.files.map(file => {
             if(file.type === 'text/plain'){
-                let archivo = new Blob([file.content], file.type);
+                console.log(file.content)
+                console.log(file.type)
+                let archivo = new Blob([file.content], {type:file.type});
                 const url = URL.createObjectURL(archivo);
                 code += `
                         <div class="folder">
                         <img src="./imgs/file.png" width="100%"/>
-                        <p class="h6 text-center">
+                        <p>
                             <a href="${url}" download>
                                 ${file.name}
                             </a>
@@ -140,7 +166,7 @@ class NA{
             }else{
                 code += ` <div class="folder">
                         <img src="./imgs/file.png" width="100%"/>
-                        <p class="h6 text-center">
+                        <p>
                             <a href="${file.content}" download>
                                 ${file.name}
                             </a>

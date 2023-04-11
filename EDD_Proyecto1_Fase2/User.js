@@ -19,6 +19,7 @@ if(localStorage.getItem("TokenTree")&&localStorage.getItem("TokenLogin")){
     document.addEventListener('DOMContentLoaded', function() {
         let id_user=document.getElementById("id_user")
         id_user.innerText=User.item.id.toString()
+        showDesk()
     });
 }
 
@@ -29,20 +30,21 @@ function exitUser() {
     localStorage.setItem("TokenLogin",JSON.stringify(TokenLogin))
     window.location.replace("./Index.html")
 }
-function createFile(){
+function createFolder(){
     let nameFile=document.getElementById("nameFolder")
     if(nameFile.value!==""){
         let item={
             msg:"Se creo la carpeta: "+Nario.insert(nameFile.value,document.getElementById("path").value)
         }
         Binnacle.insert(item)
+        updateDesk()
         save()
         showCLGraph()
         showNAGraph()
     }
 
 }
-function deleteFile(){
+function deleteFolder(){
     let nameFile=document.getElementById("nameFolder")
     if(nameFile.value!==""){
         if(Nario.delete(nameFile.value,document.getElementById("path").value)){
@@ -51,6 +53,7 @@ function deleteFile(){
             }
             Binnacle.insert(item)
         }
+        updateDesk()
         save()
         showCLGraph()
         showNAGraph()
@@ -85,7 +88,7 @@ function showForm(id) {
     const report_files=document.getElementById("report_files")
     const report_folders=document.getElementById("report_folders")
     const report_binnacle=document.getElementById("report_binnacle")
-    const admin_form_table=document.getElementById("desk")
+    const admin_form_table=document.getElementById("desk-container")
     report_files.style.display="none";
     report_folders.style.display="none";
     report_binnacle.style.display="none";
@@ -94,15 +97,93 @@ function showForm(id) {
     show.style.display="block";
 }
 function showDesk() {
-    showForm("desk")
+    showForm("desk-container")
+    $('#path').val("/")
     $('#desk').html(Nario.getHTML("/"))
 }
+function updateDesk() {
+    showForm("desk-container")
+    let path = $('#path').val();
+    $('#desk').html(Nario.getHTML(path))
+}
+
 function entrarCarpeta(folderName){
     let path = $('#path').val();
     let curretPath = path == '/'? path + folderName : path + "/"+ folderName;
     console.log(curretPath)
     $('#path').val(curretPath);
     $('#desk').html(Nario.getHTML(curretPath))
+}
+
+function createFile(){
+    let nameFile=document.getElementById("nameFile")
+    let path = $('#path').val();
+    if(nameFile.value!==""){
+        console.log(nameFile.value)
+        Nario.getFolder(path).files.push({
+            name:nameFile.value,
+            content:"",
+            type:"text/plain"
+        })
+        console.log(Nario.getFolder(path).files)
+        $('#desk').html(Nario.getHTML(path))
+        save()
+        showCLGraph()
+        showNAGraph()
+    }
+}
+
+function parseBase64(content){
+    return btoa(content)
+}
+let n=1
+function loadFile(){
+    let files=document.getElementById("inputFile")
+    n=1
+    files.click()
+    files.addEventListener("change",function () {
+        if(n===1){
+            let lbl=document.getElementById("labelFile")
+            if(files.files.length>0){
+                lbl.innerHTML=files.value.split("\\").pop();
+            }else{
+                lbl.innerHTML=""
+            }
+            const file=files.files[0]
+            let path = $('#path').val();
+            if(file.type==="text/plain"){
+                //console.log("es texto plano")
+                let fr = new FileReader();
+                fr.readAsText(file)
+                //console.log(Nario.getFolder(path).files)
+                Nario.getFolder(path).files.push({
+                    name:Nario.repeatFile(file.name,Nario.getFolder(path).files),
+                    content:parseBase64(fr.result),
+                    type:file.type
+                })
+                //console.log(Nario.getFolder(path).files)
+                $('#desk').html(Nario.getHTML(path))
+                save()
+                showCLGraph()
+                showNAGraph()
+            }else if(file.type.startsWith('image/')||file.type==="application/pdf"){
+                let fr = new FileReader();
+                fr.readAsText(file)
+                Nario.getFolder(path).files.push({
+                    name:Nario.repeatFile(file.name,Nario.getFolder(path).files),
+                    content:parseBase64(fr.result),
+                    type:file.type
+                })
+                $('#desk').html(Nario.getHTML(path))
+                save()
+                showCLGraph()
+                showNAGraph()
+            }
+            n+=1
+        }
+
+    })
+    return true
 }
 
 

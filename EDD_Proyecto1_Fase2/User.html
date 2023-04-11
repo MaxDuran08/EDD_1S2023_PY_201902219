@@ -30,14 +30,17 @@
           <h4 id="id_user"></h4>
           <h3>Carpetas</h3>
           <input type="text" id="nameFolder" value="" onclick="" placeholder="Nombre de Carpeta">
-          <input type="button" value="Crear Carpeta" onclick="createFile()">
-          <input type="button" value="Eliminar Carpeta" onclick="deleteFile()">
+          <input type="button" value="Crear Carpeta" onclick="createFolder()">
+          <input type="button" value="Eliminar Carpeta" onclick="deleteFolder()">
           <h3>Archivos</h3>
-          <input type="text" id="nameFile" value="" onclick="" placeholder="Nombre de Archivo">
-          <input type="button" value="Crear Archivo" onclick="">
-          <input type="button" id="loadFile" value="Subir Archivo" onclick="">
+          <input type="text" id="nameFile" value="" placeholder="Nombre de Archivo">
+          <input type="button" value="Crear Archivo" onclick="createFile()">
+          <input type="button" id="loadFile" value="Subir Archivo" onclick="loadFile()">
           <h4 for="loadFile" id="labelFile" class="label"></h4>
-          <input type="file" id="inputFile" hidden>
+          <input type="file" id="inputFile" hidden accept="application/pdf, .txt, image/*">
+          <h3>Permisos</h3>
+          <input type="text" id="idStudent" value="" placeholder="Carnet del Archivo">
+
         </div>
         <div class="user-form-left-body">
 
@@ -69,9 +72,12 @@
             <h4>Reporte de Bitacora</h4><br>
             <img id="graph_binnacle" src="">
           </div>
-          <div class="desk" id="desk">
+          <div class="desk-container" id="desk-container">
+            <div class="desk" id="desk">
 
+            </div>
           </div>
+
 
         </div>
       </div>
