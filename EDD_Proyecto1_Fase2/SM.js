@@ -5,8 +5,6 @@ class Mnode{
         this.xValue = xValue;
         this.yValue = yValue;
         this.value = value;
-
-        // APUNTADORES
         this.up = null;
         this.down = null;
         this.right = null;
@@ -14,7 +12,6 @@ class Mnode{
     }
 }
 
-// CLASE  MATRIZ DISPERSA
 class SM{
 
     constructor(){
@@ -24,32 +21,38 @@ class SM{
     }
 
     insert(x, y, value,xValue,yValue){
-        // CREAR CABECERAS DE LAS FILAS O EJE X
+        let p=this.head
+        let q=this.head
+        while (p.down!=null){
+            if(p.down.xValue==xValue){
+                x=p.down.value
+            }
+            p=p.down
+        }
+        while (q.right!=null){
+            if(q.right.yValue==yValue){
+                y=q.right.value
+            }
+            q=q.right
+        }
         this.#xHeaders(x,xValue,yValue);
-        // CREAR CABECERAS DE LAS COLUMNAS O EJE Y
         this.#yHeaders(y,xValue,yValue);
-        // CREAR EL NUEVO NODO
         const node = new Mnode(x,y,value,xValue,yValue);
-        // AGREGAR AL EJE X
         this.#addX(node, x);
-        // AGREGAR AL EJE Y
         this.#addY(node, y);
+
     }
 
-    // REALIZAR LAS CABECERAS EN LAS FILAS O EJE X
     #xHeaders(x,xValue,yValue){
-        const curr = new Mnode(-1,-1, x,xValue,yValue);
+        let curr = new Mnode(-1,-1, x,xValue,yValue);
         if(this.head.down == null){
             this.head.down = curr;
             curr.up = this.head;
         }else{
             let temp = this.head;
-
-            // ENCONTRAR EL ESPACIO PARA LA CABECERA
             while(temp.down != null && temp.down.value < x){
                 temp = temp.down;
             }
-            //INSERTAR AL FINAL SI ES ULTIMO
             if(temp.down == null){
                 temp.down = curr;
                 curr.up = temp;
@@ -71,17 +74,13 @@ class SM{
             curr.left = this.head;
         }else{
             let temp = this.head;
-
-            // ENCONTRAR EL ESPACIO PARA LA CABECERA
             while(temp.right != null && temp.right.value < y){
                 temp = temp.right;
             }
-            //INSERTAR AL FINAL SI ES ULTIMO
             if(temp.right == null){
                 temp.right = curr;
                 curr.left = temp;
             }else if(temp.right != null && temp.right.value != y){
-                // INSERCIÓN ENTRE NODOS
                 let r = temp.right;
                 temp.right = curr;
                 curr.left = temp;
@@ -93,25 +92,19 @@ class SM{
 
     #addX(newNode, x){
         let temp = this.head;
-        // BUSCAR LA CABECERA
         while(temp.value != x){
             temp = temp.down;
         }
-        // INSERCION SI LA FILA ESTA VACIA
         if(temp.right == null){
             temp.right = newNode;
             newNode.left = temp;
         }else{
             let curr = temp.right;
-            // INSERTAR ORDENADAMENTE
             if(curr.y >= newNode.y){
-                // CAMBIAR DE LUGAR CON EL PRIMERO DE LA LISTA
                 newNode.right = curr;
                 newNode.right.left = newNode;
-                //ENLAZARLO A LA CABECERA
                 newNode.left = temp
                 temp.right = newNode
-                //ASIGNARLO AL PRIMERO DE LA LISTA
                 curr = newNode;
             }else{
                 while(curr.right != null && curr.right.y < newNode.y){
@@ -131,25 +124,19 @@ class SM{
 
     #addY(newNode, y){
         let temp = this.head;
-        // BUSCAR LA CABECERA
         while(temp.value != y){
             temp = temp.right;
         }
-        // INSERCION SI LA FILA ESTA VACIA
         if(temp.down == null){
             temp.down = newNode;
             newNode.up = temp;
         }else{
             let curr = temp.down;
-            // INSERTAR ORDENADAMENTE
             if(curr.x >= newNode.x){
-                // CAMBIAR DE LUGAR CON EL PRIMERO DE LA LISTA
                 newNode.down = curr;
                 newNode.down.up = newNode;
-                //ENLAZARLO A LA CABECERA
                 newNode.up = temp
                 temp.down = newNode
-                //ASIGNARLO AL PRIMERO DE LA LISTA
                 curr = newNode;
             }else{
                 while(curr.down != null && curr.down.y < newNode.y){
@@ -165,45 +152,15 @@ class SM{
 
         }
     }
-
-    printX(){
-        let tx = null;
-        try { tx = this.head.down } catch (error) { tx = null; console.log("errorX1"); }
-        let ty = null;
-        while(tx != null){
-            try { ty = tx.right } catch (error) { ty = null; console.log("errorX2"); }
-            let str = ""
-            while(ty != null){
-                str += ty.value + ",";
-                ty = ty.right;
-            }
-            console.log(tx.value,": ", str)
-            tx = tx.down;
-        }
-    }
-
-    printY(){
-        let ty = null;
-        try { ty = this.head.right } catch (error) { ty = null; console.log("errorY1"); }
-        let tx = null;
-        while(ty != null){
-            // console.log(ty.value)
-            try { tx = ty.down } catch (error) { tx = null; console.log("errorY2"); }
-            let str = ""
-            while(tx != null){
-                str += tx.value + ",";
-                tx = tx.down;
-            }
-            console.log(ty.value,": ", str)
-            ty = ty.right;
-        }
-    }
-
     graph(){
         let code = "graph [nodesep=\"0.8\", ranksep=\"0.6\"]; \n";
-        code +="M0[ label = \"DOCUMENTOS\" width = 1.5 shape = \"square\" style = \"filled\" fillcolor =\"slateblue\" group=\"0\"]; \n";
-        code += this.#headersGraph()
-        code += this.#nodesGraph()
+        if(this.head.down===null&&this.head.up===null&&this.head.left===null&&this.head.right===null){
+            code +="M0[ label = \"No se han generado permisos\" width = 1.5 shape = \"square\" style = \"filled\" fillcolor =\"yellow:green\" group=\"0\"]; \n";
+        }else{
+            code +="M0[ label = \"DOCUMENTOS\" width = 1.5 shape = \"square\" style = \"filled\" fillcolor =\"yellow:green\" group=\"0\"]; \n";
+            code += this.#headersGraph()
+            code += this.#nodesGraph()
+        }
         return(code)
     }
     #headersGraph(){
@@ -213,7 +170,7 @@ class SM{
         let temp = null;
         try { temp = this.head.right } catch (error) { temp = null; console.log("GRAPH"); }
         while(temp != null){
-            nodes += "Y" + temp.value + `[label="${temp.yValue}" width = 1.5 shape ="square" style="filled" fillcolor="skyblue3" group = ${temp.value} ];\n`
+            nodes += "Y" + temp.value + `[label="${temp.yValue}" width = 1.5 shape ="square" style="filled" fillcolor="green" group = ${temp.value} ];\n`
             rank += "Y" + temp.value + ";";
             if(temp.right != null){
                 conn += "Y" + temp.value + "->";
@@ -226,8 +183,7 @@ class SM{
         conn += 'M0 ->';
         try { temp = this.head.down } catch (error) { temp = null; console.log("GRAPH"); }
         while(temp != null){
-            console.log(temp)
-            nodes += "X" + temp.value + `[label="${temp.xValue}" width = 1.5 shape ="square" style="filled" fillcolor="skyblue3" group="0"];\n`
+            nodes += "X" + temp.value + `[label="${temp.xValue}" width = 1.5 shape ="square" style="filled" fillcolor="yellow" group="0"];\n`
             if(temp.down != null){
                 conn += "X" + temp.value + "->";
             }else{

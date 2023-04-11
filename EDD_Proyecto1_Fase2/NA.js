@@ -3,15 +3,15 @@ class nodeNA{
     constructor(folderName){
         this.folderName = folderName;
         this.files = [];
-        this.children = []; // TODOS LOS NODOS HIJOS
-        this.id = null; // PARA GENERAR LA GRÁFICA
+        this.children = [];
+        this.id = null;
     }
 }
 class NA{
     constructor(){
         this.root = new nodeNA('/');
         this.root.id = 0;
-        this.size = 1; // Para generar los ids
+        this.size = 1;
         this.repeat=0;
     }
 
@@ -46,8 +46,7 @@ class NA{
     }
 
     getFolder(path){
-        // Padre sea una '/'
-        // console.log(path);
+
         if(path == this.root.folderName){
             return this.root;
         }else{
@@ -173,8 +172,6 @@ class NA{
         // console.log(node.files)
         node.files.map(file => {
             if(file.type === 'text/plain'){
-                console.log(file.content)
-                console.log(file.type)
                 let archivo = new Blob([file.content], {type:file.type});
                 const url = URL.createObjectURL(archivo);
                 code += `

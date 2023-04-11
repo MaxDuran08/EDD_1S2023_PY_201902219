@@ -38,8 +38,14 @@ function exitUser() {
 function createFolder(){
     let nameFile=document.getElementById("nameFolder")
     if(nameFile.value!==""){
+        const ahora = new Date();
+        const dia = ahora.getDate();
+        const mes = ahora.getMonth() + 1;
+        const anio = ahora.getFullYear();
+        const hora = ahora.getHours();
+        const minuto = ahora.getMinutes();
         let item={
-            msg:"Se creo la carpeta: "+Nario.insert(nameFile.value,document.getElementById("path").value)
+            msg:"Accion: Se elimino una carpeta\\n\'"+Nario.insert(nameFile.value,document.getElementById("path").value)+"\'\\nFecha: "+dia+":"+mes+":"+anio+"\\nHora: "+hora+":"+minuto
         }
         Binnacle.insert(item)
         updateDesk()
@@ -52,9 +58,15 @@ function createFolder(){
 function deleteFolder(){
     let nameFile=document.getElementById("nameFolder")
     if(nameFile.value!==""){
+        const ahora = new Date();
+        const dia = ahora.getDate();
+        const mes = ahora.getMonth() + 1;
+        const anio = ahora.getFullYear();
+        const hora = ahora.getHours();
+        const minuto = ahora.getMinutes();
         if(Nario.delete(nameFile.value,document.getElementById("path").value)){
             let item={
-                msg:"Se elimino la carpeta: "+nameFile.value
+                msg:"Accion: Se elimino una carpeta\\n\'"+nameFile.value+"\'\\nFecha: "+dia+":"+mes+":"+anio+"\\nHora: "+hora+":"+minuto
             }
             Binnacle.insert(item)
         }
@@ -79,13 +91,14 @@ function reportFolders() {
 
 function showSMGraph(){
     let url = 'https://quickchart.io/graphviz?graph=';
-    let body = `digraph G { ${Matrix.graph()} }`
+    let body = `digraph G { bgcolor=transparent ${Matrix.graph()} }`
     const graph = document.getElementById("graph_files")
     graph.src=url+body
 }
 function showCLGraph(){
     let url = 'https://quickchart.io/graphviz?graph=';
     let body = `digraph G { rankdir = TB bgcolor=transparent ${Binnacle.clGraph()} }`
+    console.log(body)
     const graph = document.getElementById("graph_binnacle")
     graph.src=url+body
 }
@@ -216,12 +229,13 @@ function setAcces() {
         Matrix.insert(Matrix.xSize,Matrix.ySize,value,id.value,file.value)
         Matrix.xSize+=1
         Matrix.ySize+=1
+        showSMGraph()
     }
 
 }
 
 function save() {
     let TokenLogin=JSON.parse(localStorage.getItem("TokenLogin"))
-    Tree.save(TokenLogin.user.toString(),TokenLogin.password,Binnacle,Nario)
+    Tree.save(TokenLogin.user.toString(),TokenLogin.password,Binnacle,Nario,Matrix)
     localStorage.setItem("TokenTree", JSON.stringify(Tree))
 }

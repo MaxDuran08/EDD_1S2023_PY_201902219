@@ -290,7 +290,7 @@ input[type=radio],input[type=checkbox]:checked + label{
 }
 /*Desk*/
 .desk{
-    width: 900px;
+    width: 700px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -298,7 +298,7 @@ input[type=radio],input[type=checkbox]:checked + label{
 .folder{
     width: 50px;
     margin: 10px;
-    flex: 1 1 80px;
+    flex: 1 1 20px;
 }
 .folder img{
     height: 50px;
@@ -306,4 +306,8 @@ input[type=radio],input[type=checkbox]:checked + label{
 }
 .folder p{
     color: white;
+}
+/*Report*/
+.report{
+    max-width: 700px;
 }

@@ -163,21 +163,22 @@ class ArbolAVL {
         return false
     }
 
-    save(id,password,Binnacle,Nario){
+    save(id,password,Binnacle,Nario,Matrix){
         this.current = this.root
-        return this.save_find(id,password,Binnacle,Nario)
+        return this.save_find(id,password,Binnacle,Nario,Matrix)
     }
-    save_find(id,password,Binnacle,Nario){
+    save_find(id,password,Binnacle,Nario,Matrix){
         if(this.current && this.current.item.id.toString()===id && this.current.item.password===password){
             this.current.LC=Binnacle
             this.current.NA=Nario
+            this.current.SM=Matrix
             return this.current
         }else if( this.current && this.current.item.id<id){
             this.current = this.current.right
-            return this.save_find(id,password,Binnacle,Nario)
+            return this.save_find(id,password,Binnacle,Nario,Matrix)
         }else if(this.current && this.current.item.id>id){
             this.current = this.current.left
-            return this.save_find(id,password,Binnacle,Nario)
+            return this.save_find(id,password,Binnacle,Nario,Matrix)
         }
         return false
     }
