@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Usuario</title>
+  <link rel="stylesheet" type="text/css" href="./css/Index.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+          crossorigin="anonymous"></script>
+  <script src="./ArbolAVL.js"></script>
+  <script src="./LC.js"></script>
+  <script src="./NA.js"></script>
+  <script src="./SM.js"></script>
+  <script src="./User.js"></script>
+</head>
+<body>
+  <div class="user">
+    <div class="user-header">
+      <h1>Usuario</h1>
+    </div>
+    <div class="user-form">
+
+      <div class="user-form-left">
+
+
+        <div class="user-form-left-head">
+          <h3>Bienvenido</h3>
+          <h4 id="id_user"></h4>
+          <h3>Carpetas</h3>
+          <input type="text" id="nameFolder" value="" onclick="" placeholder="Nombre de Carpeta">
+          <input type="button" value="Crear Carpeta" onclick="createFolder()">
+          <input type="button" value="Eliminar Carpeta" onclick="deleteFolder()">
+          <h3>Archivos</h3>
+          <input type="text" id="nameFile" value="" placeholder="Nombre de Archivo">
+          <input type="button" value="Crear Archivo" onclick="createFile()">
+          <input type="button" id="loadFile" value="Subir Archivo" onclick="loadFile()">
+          <h4 for="loadFile" id="labelFile" class="label"></h4>
+          <input type="file" id="inputFile" hidden accept="application/pdf, .txt, image/*">
+          <h3>Permisos</h3>
+          <input type="text" id="idStudent" value="" placeholder="Carnet del estudiante">
+          <input type="text" id="idFile" value="" placeholder="Nombre de Archivo">
+          <div class="radio-group">
+            <input type="checkbox" id="read" name="option"  checked>
+            <label for="read">r</label>
+            <input type="checkbox" id="write" name="option" >
+            <label for="write">w</label>
+          </div>
+          <input type="button" value="Dar Acceso" onclick="setAcces()">
+        </div>
+        <div class="user-form-left-body">
+
+        </div>
+      </div>
+
+      <div class="user-form-right">
+
+        <div class="user-form-right-head">
+          <input type="button" value="Escritorio" onclick="showDesk()">
+          <input type="text" disabled value="/" id="path">
+        </div>
+        <div class="user-form-right-body">
+          <input type="button" value="Reporte Carpetas" onclick="reportFolders()">
+          <input type="button" value="Reporte Archivos" onclick="reportFiles()">
+          <input type="button" value="Reporte Bitacora" onclick="reportBinnacle()">
+          <input type="button" value="Cerrar Sesión" onclick="exitUser()">
+        </div>
+        <div class="user-form-right-bottom">
+          <div class="report" id="report_files" style="display: none;">
+            <h4>Reporte de Archivos</h4><br>
+            <img id="graph_files" src="">
+          </div>
+          <div class="report" id="report_folders" style="display: none;">
+            <h4>Reporte de Carpetas</h4><br>
+            <img id="graph_folders" src="">
+          </div>
+          <div class="report" id="report_binnacle" style="display: none;">
+            <h4>Reporte de Bitacora</h4><br>
+            <img id="graph_binnacle" src="">
+          </div>
+          <div class="desk-container" id="desk-container">
+            <div class="desk" id="desk">
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+</body>
+</html>
