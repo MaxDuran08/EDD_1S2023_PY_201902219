@@ -13,41 +13,29 @@ let Tree=new ArbolAVL()
 
 if(localStorage.getItem("TokenTree")){
     Tree.root=JSON.parse(localStorage.getItem("TokenTree")).root
+}
+
+let Hash= new HashTable();
+if(localStorage.getItem("TokenHash")){
+    Hash.table=JSON.parse(localStorage.getItem("TokenHash")).table
+    Hash.capacidad=JSON.parse(localStorage.getItem("TokenHash")).capacidad
+    Hash.espaciosUsados=JSON.parse(localStorage.getItem("TokenHash")).espaciosUsados
     document.addEventListener('DOMContentLoaded', function() {
-        loadInOrden()
+        const tbl=document.getElementById("tbl-content2")
+        Hash.show(tbl)
     });
+
 }
 
-function loadInOrden(){
-    const In_Orden = document.getElementById("In_Orden")
-    const tbl=document.getElementById("tbl-content")
-    console.log(In_Orden.id)
-    Tree.inOrder(tbl)
-}
-
-function updateTbl(){
-    const In_Orden = document.getElementById("In_Orden")
-    const Post_Orden = document.getElementById("Post_Orden")
-    const Pre_Orden = document.getElementById("Pre_Orden")
-    const tbl=document.getElementById("tbl-content")
-
+function updateTbl2(){
+    const tbl=document.getElementById("tbl-content2")
     let rows=tbl.rows.length
     for (let i = rows-1; i >= 0; i--) {
         tbl.deleteRow(i)
     }
+    Hash.show(tbl)
 
-    if(In_Orden.checked){
-        console.log(In_Orden.id)
-        Tree.inOrder(tbl)
-    }else if(Post_Orden.checked){
-        console.log(Post_Orden.id)
-        Tree.postOrder(tbl)
-    }else if(Pre_Orden.checked){
-        console.log(Pre_Orden.id)
-        Tree.preOrder(tbl)
-    }
 }
-
 function exitAdmin(){
     let TokenLogin=JSON.parse(localStorage.getItem("TokenLogin"))
     TokenLogin.user="none"
@@ -55,24 +43,24 @@ function exitAdmin(){
     localStorage.setItem("TokenLogin",JSON.stringify(TokenLogin))
     window.location.replace("./Index.html")
 }
-function table() {
+
+
+
+function table2() {
     console.log("Mostrar Tabla")
     showForm("none","block")
 }
-
-function treeAVL(){
-    console.log("Mostrar árbol AVL")
+function table1() {
+    console.log("Mostrar Tabla1")
     showForm("block","none")
-    showAvlGraph()
 }
 
 function showForm(a,b) {
-    const admin_form_tree=document.getElementById("admin_form_tree")
-    const admin_form_table=document.getElementById("admin_form_table")
-    admin_form_tree.style.display=a;
-    admin_form_table.style.display=b;
+    const admin_form_table1=document.getElementById("admin_form_table1")
+    const admin_form_table2=document.getElementById("admin_form_table2")
+    admin_form_table1.style.display=a;
+    admin_form_table2.style.display=b;
 }
-
 
 function massiveLoad() {
     let file =document.getElementById("inputFile")
@@ -98,9 +86,10 @@ function massiveLoad() {
                         root:alumno.carpeta_raiz,
                     }
                     Tree.insert(item)
+                    Hash.insert(alumno.carnet,alumno.nombre,alumno.password)
                     localStorage.setItem("TokenTree", JSON.stringify(Tree))
-                    updateTbl()
-                    showAvlGraph()
+                    localStorage.setItem("TokenHash", JSON.stringify(Hash))
+                    updateTbl2()
                 })
             })
             reader.readAsText(fl)
@@ -111,9 +100,4 @@ function massiveLoad() {
     })
     console.log("Carga masiva")
 }
-function showAvlGraph(){
-    let url = 'https://quickchart.io/graphviz?graph=';
-    let body = `digraph G { bgcolor=transparent ${Tree.treeGraph()} }`
-    const graph = document.getElementById("graph")
-    graph.src=url+body
-}
+

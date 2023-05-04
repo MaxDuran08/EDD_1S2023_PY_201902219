@@ -10,6 +10,7 @@
 
   <script src="./ArbolAVL.js"></script>
   <script src="./LC.js"></script>
+  <script src="./Hash.js"></script>
   <script src="./NA.js"></script>
   <script src="./SM.js"></script>
   <script src="./Admin.js"></script>
@@ -24,8 +25,8 @@
 
       <div class="admin-form-top">
 
-        <input type="button" value="Mostrar Alumnos" onclick="table()">
-        <input type="button" value="Árbol de Estudiantes" onclick="treeAVL()">
+        <input type="button" value="Mostrar Alumnos" onclick="table2()">
+        <input type="button" value="Mostrar Permisos" onclick="table1()">
         <input type="button" id="massiveLoad" value="Carga Masiva" onclick="massiveLoad()">
         <div class="massive">
 
@@ -38,40 +39,52 @@
       </div>
 
       <div class="admin-form-bottom">
-        <div class="admin-form-table" id="admin_form_table">
+        <div class="admin-form-table" id="admin_form_table2" >
           <h3>Reporte de Alumnos</h3>
-            <div class="tbl-header">
-              <table>
-                <thead>
-                <tr>
-                  <th>NOMBRE</th>
-                  <th>CARNET</th>
-                  <th>CONTRASEÑA</th>
-                </tr>
-                </thead>
-              </table>
-            </div>
+          <div class="tbl-header">
+            <table>
+              <thead>
+              <tr>
+                <th>NOMBRE</th>
+                <th>CARNET</th>
+                <th>CONTRASEÑA</th>
+              </tr>
+              </thead>
+            </table>
+          </div>
 
-            <div class="tbl-content">
-              <table id="tbl-content">
-                <tbody>
-                </tbody>
-              </table>
-            </div>
-            <br>
-            <div class="radio-group">
-              <input type="radio" id="In_Orden" name="option" checked onclick="updateTbl()">
-              <label for="In_Orden">In Orden</label>
-              <input type="radio" id="Post_Orden" name="option" onclick="updateTbl()">
-              <label for="Post_Orden">Post Orden</label>
-              <input type="radio" id="Pre_Orden" name="option" onclick="updateTbl()">
-              <label for="Pre_Orden">Pre Orden</label>
-            </div>
+          <div class="tbl-content">
+            <table id="tbl-content2">
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+          <br>
         </div>
 
-        <div class="admin-form-tree" id="admin_form_tree" style="display: none;">
-          <h3>Reporte de Árbol AVL</h3><br>
-          <img id="graph" src="">
+        <div class="admin-form-table" id="admin_form_table1" style="display: none;">
+          <h3>Reporte de Permisos</h3>
+          <div class="tbl-header">
+            <table>
+              <thead>
+              <tr>
+                <th>PROPIETARIO</th>
+                <th>DESTINO</th>
+                <th>UBICACION</th>
+                <th>ARCHIVO</th>
+                <th>PERMISOS</th>
+              </tr>
+              </thead>
+            </table>
+          </div>
+
+          <div class="tbl-content">
+            <table id="tbl-content1">
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+          <br>
         </div>
 
       </div>
