@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/circular-json/0.5.9/circular-json.min.js"></script>
 </head>
 <body>
 <script>
-  // Cálculo del hash SHA-256
-  var message = "Mensaje a hashear";
+  // Ejemplo de uso de circular-json
+  var obj = { foo: 'bar' };
 
-  var hash = CryptoJS.SHA256(message);
-  console.log("Hash SHA-256: " + hash.toString());
+  var jsonString = CircularJSON.stringify(obj);
+  console.log(jsonString);
+
+  var parsedObj = CircularJSON.parse(jsonString);
+  console.log(parsedObj);
 </script>
 </body>
 </html>

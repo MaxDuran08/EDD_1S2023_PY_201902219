@@ -12,7 +12,7 @@ if(localStorage.getItem("TokenLogin")){
 let Tree=new ArbolAVL()
 
 if(localStorage.getItem("TokenTree")){
-    Tree.root=JSON.parse(localStorage.getItem("TokenTree")).root
+    Tree.root=CircularJSON.parse(localStorage.getItem("TokenTree")).root
 }
 
 let Hash= new HashTable();
@@ -24,7 +24,11 @@ if(localStorage.getItem("TokenHash")){
         const tbl=document.getElementById("tbl-content2")
         Hash.show(tbl)
     });
-    console.log(Hash)
+}
+let Permisos=[];
+
+if(localStorage.getItem("TokenPermisos")){
+    Permisos=CircularJSON.parse(localStorage.getItem("TokenPermisos"))
 }
 
 function updateTbl2(){
@@ -34,6 +38,28 @@ function updateTbl2(){
         tbl.deleteRow(i)
     }
     Hash.show(tbl)
+
+}
+
+function updateTbl1(){
+    const tbl=document.getElementById("tbl-content1")
+    let rows=tbl.rows.length
+    for (let i = rows-1; i >= 0; i--) {
+        tbl.deleteRow(i)
+    }
+    Permisos.forEach(permiso=>{
+        let row=tbl.insertRow()
+        let cell1=row.insertCell(0)
+        let cell2=row.insertCell(1)
+        let cell3=row.insertCell(2)
+        let cell4=row.insertCell(3)
+        let cell5=row.insertCell(4)
+        cell1.innerHTML=permiso.propietario
+        cell2.innerHTML=permiso.detino
+        cell3.innerHTML=permiso.ubicacio
+        cell4.innerHTML=permiso.archivo
+        cell5.innerHTML=permiso.permisos
+    })
 
 }
 function exitAdmin(){
@@ -53,6 +79,7 @@ function table2() {
 function table1() {
     console.log("Mostrar Tabla1")
     showForm("block","none")
+    updateTbl1()
 }
 
 function showForm(a,b) {
@@ -90,6 +117,7 @@ function massiveLoad() {
                     localStorage.setItem("TokenTree", JSON.stringify(Tree))
                     localStorage.setItem("TokenHash", JSON.stringify(Hash))
                     updateTbl2()
+                    updateTbl1()
                 })
             })
             reader.readAsText(fl)

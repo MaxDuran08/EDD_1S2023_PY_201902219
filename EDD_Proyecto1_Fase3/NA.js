@@ -151,6 +151,7 @@ class NA{
         })
         ){
             if(key){
+                console.log(node.folderName)
                 return true
             }
         }else{
@@ -161,6 +162,31 @@ class NA{
 
         return false
     }
+
+    searchFolderName(name){
+        let node=this.root
+        return this.searchFolderNameRecursive(name,node)
+    }
+    searchFolderNameRecursive(name,node){
+        let key=false
+        if(node.files.map(file=>{
+            if(file.name===name){
+                key =true
+            }
+        })
+        ){
+            if(key){
+                return node.folderName
+            }
+        }else{
+            node.children.map(child=>{
+                this.searchFileRecursive(name,child)
+            })
+        }
+
+        return false
+    }
+
 
     getHTML(path){
         let node = this.getFolder(path);

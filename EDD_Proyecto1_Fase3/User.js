@@ -5,8 +5,14 @@ let Binnacle=new LC()
 let Nario=new NA()
 let Matrix=new SM()
 
+let Permisos=[];
+
+if(localStorage.getItem("TokenPermisos")){
+    Permisos=CircularJSON.parse(localStorage.getItem("TokenPermisos"))
+}
+
 if(localStorage.getItem("TokenTree")&&localStorage.getItem("TokenLogin")){
-    Tree.root=JSON.parse(localStorage.getItem("TokenTree")).root
+    Tree.root=CircularJSON.parse(localStorage.getItem("TokenTree")).root
     let TokenLogin=JSON.parse(localStorage.getItem("TokenLogin"))
     User=Tree.search(TokenLogin.user.toString(),TokenLogin.password)
     Binnacle.root=User.LC.root
@@ -234,6 +240,15 @@ function setAcces() {
         Matrix.xSize+=1
         Matrix.ySize+=1
         showSMGraph()
+        Permisos.push(item={
+            propietario:User.item.id,
+            detino:id.value,
+            ubicacio:Nario.searchFolderName(file.value),
+            archivo:file.value,
+            permisos:value
+        })
+        save()
+
     }
 
 }
@@ -241,5 +256,7 @@ function setAcces() {
 function save() {
     let TokenLogin=JSON.parse(localStorage.getItem("TokenLogin"))
     Tree.save(TokenLogin.user.toString(),TokenLogin.password,Binnacle,Nario,Matrix)
-    localStorage.setItem("TokenTree", JSON.stringify(Tree))
+    console.log("save")
+    localStorage.setItem("TokenTree", CircularJSON.stringify(Tree))
+    localStorage.setItem("TokenPermisos", CircularJSON.stringify(Permisos))
 }
