@@ -269,5 +269,33 @@ class ArbolAVL {
         return row;
     }
 
+    block_chain(carnet) {
+        this.block_chainRecursive(this.root,carnet);
+    }
+    block_chainRecursive(current,carnet) {
+        let optionsForSelect1 = "";
+        let optionsForSelect2 = "";
+        if(carnet===current.item.id){
+            optionsForSelect1 += `
+                <option value="${current.item.id}">${current.item.name}</option>
+            `;
+        }else{
+            optionsForSelect2 += `
+            <option value="${current.item.id}">${current.item.name}</option>
+        `;
+        }
+
+
+        if (current.left != null) {
+            this.block_chainRecursive(current.left,carnet);
+        }
+        if (current.right != null) {
+            this.block_chainRecursive(current.right,carnet);
+        }
+        $('#transmitter').append(optionsForSelect1);
+        $('#receiver').append(optionsForSelect2);
+
+
+    }
 
 }

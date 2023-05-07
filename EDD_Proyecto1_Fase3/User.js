@@ -4,11 +4,11 @@ let User;
 let Binnacle=new LC()
 let Nario=new NA()
 let Matrix=new SM()
-
+let blockChain = new BlockChain();
 let Permisos=[];
 
 if(localStorage.getItem("TokenPermisos")){
-    Permisos=CircularJSON.parse(localStorage.getItem("TokenPermisos"))
+    Permisos=JSON.parse(localStorage.getItem("TokenPermisos"))
 }
 
 if(localStorage.getItem("TokenTree")&&localStorage.getItem("TokenLogin")){
@@ -31,6 +31,12 @@ if(localStorage.getItem("TokenTree")&&localStorage.getItem("TokenLogin")){
         let id_user=document.getElementById("id_user")
         id_user.innerText=User.item.id.toString()
         showDesk()
+        Tree.block_chain(User.item.id)
+        if (localStorage.getItem("TokenBlockChain")){
+            blockChain.head=CircularJSON.parse(localStorage.getItem("TokenBlockChain")).head
+            blockChain.end=CircularJSON.parse(localStorage.getItem("TokenBlockChain")).end
+            blockChain.size=CircularJSON.parse(localStorage.getItem("TokenBlockChain")).size
+        }
     });
 }
 let Hash= new HashTable();
@@ -42,6 +48,7 @@ if(localStorage.getItem("TokenHash")){
 
 function exitUser() {
     let TokenLogin=JSON.parse(localStorage.getItem("TokenLogin"))
+    save()
     TokenLogin.user="none"
     TokenLogin.password="none"
     localStorage.setItem("TokenLogin",JSON.stringify(TokenLogin))
@@ -92,6 +99,9 @@ function reportBinnacle() {
     showCLGraph()
     showForm("report_binnacle")
 }
+function Chat() {
+    showForm("Chat")
+}
 function reportFiles() {
     showSMGraph()
     showForm("report_files")
@@ -125,10 +135,12 @@ function showForm(id) {
     const report_folders=document.getElementById("report_folders")
     const report_binnacle=document.getElementById("report_binnacle")
     const admin_form_table=document.getElementById("desk-container")
+    const Chat=document.getElementById("Chat")
     report_files.style.display="none";
     report_folders.style.display="none";
     report_binnacle.style.display="none";
     admin_form_table.style.display="none";
+    Chat.style.display="none";
     let show=document.getElementById(id)
     show.style.display="block";
 }
@@ -220,6 +232,78 @@ function loadFile(){
     })
     return true
 }
+// ACTUALIZAR AMBOS CHATS
+function updateChats(){
+    let transmitter = $('#transmitter').val();
+    let receiver = $('#receiver').val();
+    $('#transmitter-chat').html(blockChain.getMessages(transmitter, receiver));
+    $('#receiver-chat').html(blockChain.getMessages(receiver, transmitter));
+}
+
+
+async function sendMessage(whoSend){
+    // OBTENER VALORES DEL SELECT
+    let transmitter = $('#transmitter').val();
+    let receiver = $('#receiver').val();
+
+    // VERIFICAR QUE HAYA SELECCIONADO UN USUARIO
+    if(transmitter && receiver){
+        switch(whoSend){
+            case 'transmitter':
+                // OBTENER MENSAJE A ENVIAR
+                let msgt = $('#msg-transmitter').val();
+                // INSERTAR MENSAJE EN BLOCKCHAIN
+                await blockChain.insert(transmitter, receiver, msgt);
+                $('#msg-transmitter').val("");
+                break;
+            case 'receiver':
+                // OBTENER MENSAJE A ENVIAR
+                let msgr = $('#msg-receiver').val();
+                // INSERTAR MENSAJE EN BLOCKCHAIN
+                await blockChain.insert(receiver, transmitter, msgr);
+                $('#msg-receiver').val("");
+                break;
+        }
+        console.log(blockChain)
+        // ACTUALIZAR CHATS
+        updateChats();
+    }else{
+        alert("No ha seleccionado Receptop o Emisor");
+    }
+}
+
+
+function getBlock(index){
+    if(index === 0){
+        let html = blockChain.blockReport(index);
+        if(html){
+            $('#show-block').html(html);
+        }
+    }else{
+        let currentBlock = Number($('#block-table').attr('name'));
+
+        if(index < 0){ // MOSTRAR EL ANTERIOR
+            if(currentBlock - 1 < 0){
+                alert("No existen elementos anteriores");
+            }else{
+                let html = blockChain.blockReport(currentBlock - 1);
+                if(html){
+                    $('#show-block').html(html);
+                }
+            }
+
+        }else if(index > 0){ // MOSTRAR EL SIGUIENTE
+            if(currentBlock + 1 > blockChain.size ){
+                alert("No existen elementos siguientes");
+            }else{
+                let html = blockChain.blockReport(currentBlock + 1);
+                if(html){
+                    $('#show-block').html(html);
+                }
+            }
+        }
+    }
+}
 
 
 
@@ -259,4 +343,5 @@ function save() {
     console.log("save")
     localStorage.setItem("TokenTree", CircularJSON.stringify(Tree))
     localStorage.setItem("TokenPermisos", CircularJSON.stringify(Permisos))
+    localStorage.setItem("TokenBlockChain", CircularJSON.stringify(blockChain))
 }

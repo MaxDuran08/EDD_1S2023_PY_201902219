@@ -9,6 +9,14 @@ if(localStorage.getItem("TokenLogin")){
     window.location.replace("./Index.html")
 }
 
+
+let blockChain = new BlockChain();
+if (localStorage.getItem("TokenBlockChain")){
+    blockChain.head=CircularJSON.parse(localStorage.getItem("TokenBlockChain")).head
+    blockChain.end=CircularJSON.parse(localStorage.getItem("TokenBlockChain")).end
+    blockChain.size=CircularJSON.parse(localStorage.getItem("TokenBlockChain")).size
+}
+
 let Tree=new ArbolAVL()
 
 if(localStorage.getItem("TokenTree")){
@@ -68,6 +76,80 @@ function exitAdmin(){
     TokenLogin.password="none"
     localStorage.setItem("TokenLogin",JSON.stringify(TokenLogin))
     window.location.replace("./Index.html")
+}
+
+// ACTUALIZAR AMBOS CHATS
+function updateChats(){
+    let transmitter = $('#transmitter').val();
+    let receiver = $('#receiver').val();
+    $('#transmitter-chat').html(blockChain.getMessages(transmitter, receiver));
+    $('#receiver-chat').html(blockChain.getMessages(receiver, transmitter));
+}
+
+
+async function sendMessage(whoSend){
+    // OBTENER VALORES DEL SELECT
+    let transmitter = $('#transmitter').val();
+    let receiver = $('#receiver').val();
+
+    // VERIFICAR QUE HAYA SELECCIONADO UN USUARIO
+    if(transmitter && receiver){
+        switch(whoSend){
+            case 'transmitter':
+                // OBTENER MENSAJE A ENVIAR
+                let msgt = $('#msg-transmitter').val();
+                // INSERTAR MENSAJE EN BLOCKCHAIN
+                await blockChain.insert(transmitter, receiver, msgt);
+                $('#msg-transmitter').val("");
+                break;
+            case 'receiver':
+                // OBTENER MENSAJE A ENVIAR
+                let msgr = $('#msg-receiver').val();
+                // INSERTAR MENSAJE EN BLOCKCHAIN
+                await blockChain.insert(receiver, transmitter, msgr);
+                $('#msg-receiver').val("");
+                break;
+        }
+        alert("Mensaje enviado");
+        save()
+        // ACTUALIZAR CHATS
+        updateChats();
+    }else{
+        alert("No ha seleccionado Receptop o Emisor");
+    }
+}
+
+
+function getBlock(index){
+    if(index === 0){
+        let html = blockChain.blockReport(index);
+        if(html){
+            $('#show-block').html(html);
+        }
+    }else{
+        let currentBlock = Number($('#block-table').attr('name'));
+
+        if(index < 0){ // MOSTRAR EL ANTERIOR
+            if(currentBlock - 1 < 0){
+                alert("No existen elementos anteriores");
+            }else{
+                let html = blockChain.blockReport(currentBlock - 1);
+                if(html){
+                    $('#show-block').html(html);
+                }
+            }
+
+        }else if(index > 0){ // MOSTRAR EL SIGUIENTE
+            if(currentBlock + 1 > blockChain.size ){
+                alert("No existen elementos siguientes");
+            }else{
+                let html = blockChain.blockReport(currentBlock + 1);
+                if(html){
+                    $('#show-block').html(html);
+                }
+            }
+        }
+    }
 }
 
 
