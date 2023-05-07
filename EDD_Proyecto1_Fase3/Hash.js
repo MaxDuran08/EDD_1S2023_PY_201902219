@@ -1,5 +1,4 @@
 // CLASE NODO DE LA TABLA HASH
-
 class HashNode{
     constructor(carnet, nombre, password){
         this.carnet = carnet;
@@ -10,6 +9,7 @@ class HashNode{
 
 // CLASE TABLA HASH
 class HashTable{
+    key = "Clave secreta";
     constructor(){
         // ARRAY QUE ALMACENARÁ LOS VALORES
         this.table = new Array(7);
@@ -25,7 +25,7 @@ class HashTable{
         // FÓRMULA: (SUMA ASCII's DEL CARNET) % CAPACIDAD ACTUAL
         let indice = this.calcularIndice(carnet);
         // CREAR NUEVO NODO
-        let nodoNuevo = new HashNode(carnet, nombre, password);
+        let nodoNuevo = new HashNode(carnet, nombre, this.Encrypt(password));
         // COMPROBAR QUE EL INDICE SEA MENOR QUE A CAPACIADAD
         if(indice < this.capacidad){
             // VERIFICAR SI EN EL LA POSICIÓN DEL ARRAY ES NULO
@@ -162,10 +162,10 @@ class HashTable{
                 }else{
                     // MISMA ITERACIÓN DE LA INSERCIÓN HASTA LLEGAR AL VALOR
                     let contador = 1;
-                    indice = this.recalcularIndice(carent, contador);
+                    indice = this.recalcularIndice(carnet, contador);
                     while(this.table[indice] != null){
                         contador ++;
-                        indice = this.recalcularIndice(carent, contador);
+                        indice = this.recalcularIndice(carnet, contador);
                         // SE VERIFICA EL CARNET Y SE RETORNA
                         if(this.table[indice].carnet === carnet){
                             return this.table[indice].carnet;
@@ -179,6 +179,17 @@ class HashTable{
         return null;
     }
 
+    Encrypt(password){
+        // Encrypt
+        var ciphertext = CryptoJS.SHA256(password)
+        return  ciphertext.toString()
+
+    }
+    Decrypt(ciphertext){
+        // Encrypt
+        return  ciphertext.toString()
+    }
+
     show(tbl){
         this.table.forEach(value => {
             if(value!=null){
@@ -188,7 +199,7 @@ class HashTable{
                 let cell3=row.insertCell(2)
                 cell1.innerHTML=value.nombre
                 cell2.innerHTML=value.carnet
-                cell3.innerHTML=value.password
+                cell3.innerHTML=value.password.toString()
             }
         })
     }

@@ -27,6 +27,12 @@ if(localStorage.getItem("TokenTree")&&localStorage.getItem("TokenLogin")){
         showDesk()
     });
 }
+let Hash= new HashTable();
+if(localStorage.getItem("TokenHash")){
+    Hash.table=JSON.parse(localStorage.getItem("TokenHash")).table
+    Hash.capacidad=JSON.parse(localStorage.getItem("TokenHash")).capacidad
+    Hash.espaciosUsados=JSON.parse(localStorage.getItem("TokenHash")).espaciosUsados
+}
 
 function exitUser() {
     let TokenLogin=JSON.parse(localStorage.getItem("TokenLogin"))
@@ -98,7 +104,6 @@ function showSMGraph(){
 function showCLGraph(){
     let url = 'https://quickchart.io/graphviz?graph=';
     let body = `digraph G { rankdir = TB bgcolor=transparent ${Binnacle.clGraph()} }`
-    console.log(body)
     const graph = document.getElementById("graph_binnacle")
     graph.src=url+body
 }
@@ -135,7 +140,6 @@ function updateDesk() {
 function entrarCarpeta(folderName){
     let path = $('#path').val();
     let curretPath = path == '/'? path + folderName : path + "/"+ folderName;
-    console.log(curretPath)
     $('#path').val(curretPath);
     $('#desk').html(Nario.getHTML(curretPath))
 }
@@ -192,7 +196,7 @@ function loadFile(){
                 showCLGraph()
                 showNAGraph()
             }else if(file.type.startsWith('image/')||file.type==="application/pdf"){
-                let fr = new FileReader();
+                let fr = new FileReader()
                 fr.readAsText(file)
                 Nario.getFolder(path).files.push({
                     name:Nario.repeatFile(file.name,Nario.getFolder(path).files),

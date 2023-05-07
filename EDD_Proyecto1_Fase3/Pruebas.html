@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+</head>
+<body>
+<script>
+  // Cálculo del hash SHA-256
+  var message = "Mensaje a hashear";
+
+  var hash = CryptoJS.SHA256(message);
+  console.log("Hash SHA-256: " + hash.toString());
+</script>
+</body>
+</html>

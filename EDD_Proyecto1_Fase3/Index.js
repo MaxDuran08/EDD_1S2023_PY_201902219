@@ -9,6 +9,7 @@ if(localStorage.getItem("TokenTree")){
     Tree.root=JSON.parse(localStorage.getItem("TokenTree")).root
 }
 
+
 function login() {
     let password =document.getElementById("inputPassword")
     let user =document.getElementById("inputUser")

@@ -24,7 +24,7 @@ if(localStorage.getItem("TokenHash")){
         const tbl=document.getElementById("tbl-content2")
         Hash.show(tbl)
     });
-
+    console.log(Hash)
 }
 
 function updateTbl2(){
@@ -99,5 +99,6 @@ function massiveLoad() {
 
     })
     console.log("Carga masiva")
+    console.log(Hash)
 }
 

@@ -122,16 +122,18 @@ class NA{
         let node = this.root;
         let queue = [];
         queue.push(node);
+        let contador=1
         while(queue.length !== 0){
             let len = queue.length;
             for(let i = 0; i < len; i ++){
                 let node = queue.shift();
                 nodes += `S_${node.id}[label="${node.folderName}" fillcolor="yellow:green" style=filled];\n`;
                 node.children.forEach( item => {
-                    connections += `S_${node.id} -> S_${item.id} [color="white"];\n`
+                    connections += `S_${node.id} -> S_${item.id} [label="${contador}" color="black"];\n`
                     queue.push(item);
                 });
             }
+            contador+=1
         }
         return 'node[shape="record"];\n' + nodes +'\n'+ connections;
     }
